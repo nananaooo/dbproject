@@ -24,8 +24,7 @@ connection.connect((err) => {
 // 루트 경로에 대한 GET 요청 처리
 app.get('/', (req, res) => {
   // MySQL에서 데이터 조회 예제
-
-  connection.query('SELECT * FROM your_table', (error, results, fields) => {
+  connection.query('SELECT * FROM cars', (error, results, fields) => {
     if (error) {
       res.status(500).send('데이터 조회 실패');
       throw error;
@@ -34,6 +33,21 @@ app.get('/', (req, res) => {
     // 조회 결과를 클라이언트에게 응답
     res.send(results);
   });
+});
+app.get('/recommend', (req, res) => {
+  // 클라이언트가 보낸 파라미터 가져오기
+  const { price, month_budget, km } = req.query;
+
+  // 각 파라미터가 주어졌는지 확인
+  if (!price || !month_budget || !km) {
+      return res.status(400).json({ error: 'Missing parameters' });
+  }
+
+  // 각 파라미터를 숫자로 변환하여 더하기
+  const totalValue = parseInt(price) + parseInt(month_budget) + parseInt(km);
+    
+  // 클라이언트에게 결과 보내기
+  res.json({ totalValue });
 });
 
 // 다른 경로에 대한 GET 요청 처리
