@@ -10,7 +10,7 @@ app.use(cors());
 const connection = mysql.createConnection({
   host: 'localhost', // MySQL 호스트 이름
   user: 'root', // MySQL 사용자 이름
-  password: 'qweasd1!', // MySQL 암호
+  password: 'password!', // MySQL 암호
   database: 'cars' // 연결할 MySQL 데이터베이스 이름
 });
 
